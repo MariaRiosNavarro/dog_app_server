@@ -11,6 +11,7 @@ const dogSchema = new mongoose.Schema({
   status: String,
   preferences: String,
   place: String,
+  gender: String,
 });
 
 export const DogModel = mongoose.model("dogs", dogSchema);

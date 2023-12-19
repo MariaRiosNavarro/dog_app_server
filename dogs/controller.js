@@ -1,11 +1,20 @@
 import { DogModel } from "./model.js";
 
-export async function getAllDogs(req, res) {
+export const getAllDogs = async (req, res) => {
   const dogs = await DogModel.find();
   res.json(dogs);
-}
+};
 
-export async function addOndDog(req, res) {
+export const getOneDog = async (req, res) => {
+  const { id } = req.params;
+
+  const dog = await DogModel.findOne({ _id: id });
+  console.log("------------🐩", dog);
+
+  res.json(dog);
+};
+
+export const addOneDog = async (req, res) => {
   // const tempDog = req.body;
   // tempDog.img=req.file.path;
 
@@ -14,4 +23,4 @@ export async function addOndDog(req, res) {
   dog.imgUrl = req.file.path;
   await dog.save();
   res.end();
-}
+};

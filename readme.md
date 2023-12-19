@@ -1,11 +1,16 @@
+# Favorites
+
+1. With this model
+
+```javascript
 import mongoose from "mongoose";
 
 const favoriteSchema = new mongoose.Schema({
-  //Only Reference
+  //ONLY REFERENCE
   dogId: mongoose.Schema.Types.ObjectId,
-
-  //Complete Document from dogs collection
+  //ALL DATA
   dogReference: { type: mongoose.Types.ObjectId, ref: "dogs" },
 });
 
 export const FavoriteModel = mongoose.model("favorites", favoriteSchema);
+```

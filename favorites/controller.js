@@ -1,17 +1,19 @@
-import { FavoriteModel } from "./model";
+import { FavoriteModel } from "./model.js";
 
 export const getOneFavorite = async (req, res) => {
   const { id } = req.params;
   //find
-  const result = await Fav.find({ dogId: id });
-  console.log("------------------🐶->", result);
-  res.json({ isFav: result.length != 0 });
+  const dog = await FavoriteModel.find({ dogId: id })
+    .populate("dogReference")
+    .exec();
+  res.json({ isFavorite: dog.length !== 0, dog: dog });
 };
 
 export const addOneFavorite = async (req, res) => {
   const { id } = req.params;
   //new
   const favorite = new FavoriteModel({ dogId: id });
+  favorite.dogReference = id;
   await favorite.save();
   res.end();
 };
@@ -19,6 +21,13 @@ export const addOneFavorite = async (req, res) => {
 export const removeFavorite = async (req, res) => {
   const { id } = req.params;
   //findByIdAndDelete
-  await FavoriteModel.findByIdAndDelete({ dogId: id });
+  //we use here the id of the Document,
+  // it is NOT the same as dogId & dogReference,
+  // it is from the collection "dogs"
+
+  const result = await FavoriteModel.findByIdAndDelete({ _id: id });
+
+  console.log(result);
+
   res.end();
 };
