@@ -129,7 +129,7 @@ export const getOneFavorite = async (req, res) => {
 
 ### Get One Thunder Client with the dogId/dogReference of the same Document (\_id above)
 
-![img](/img/dogid.png)
+![img](/img/dogId.png)
 
 # Remove Fav Dog:
 
