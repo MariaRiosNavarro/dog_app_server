@@ -1,14 +1,5 @@
 import { FavoriteModel } from "./model.js";
 
-export const getOneFavorite = async (req, res) => {
-  const { id } = req.params;
-  //find
-  const dog = await FavoriteModel.find({ dogId: id })
-    .populate("dogReference")
-    .exec();
-  res.json({ isFavorite: dog.length !== 0, dog: dog });
-};
-
 export const addOneFavorite = async (req, res) => {
   const { id } = req.params;
   //new
@@ -16,6 +7,15 @@ export const addOneFavorite = async (req, res) => {
   favorite.dogReference = id;
   await favorite.save();
   res.end();
+};
+
+export const getOneFavorite = async (req, res) => {
+  const { id } = req.params;
+  //find
+  const dog = await FavoriteModel.find({ _id: id })
+    .populate("dogReference")
+    .exec();
+  res.json({ isFavorite: dog.length !== 0, dog: dog });
 };
 
 export const removeFavorite = async (req, res) => {
